@@ -1,4 +1,4 @@
-# QianDao · 每日签到插件
+# [klkhk]plugin_qiandao_1.12.2 · 每日签到插件
 
 > Minecraft **1.12.2**（Spigot / Paper）服务端签到插件 —— 七日周期奖励、连续签到额外奖励、补签卡、签到排行榜、经济插件联动，全部配置化。
 
@@ -34,7 +34,7 @@
 
 ## 简介
 
-QianDao 是一套开箱即用的每日签到系统。玩家通过 `/qd` 打开图形化签到面板，一键领取当天奖励；插件以 **7 天为一个奖励周期**，第 7 天为终极大奖，第 8 天重新从第 1 天循环（连续天数继续累计）。漏签可以用**补签卡**补救，连续签到 7 / 14 / 30 天还有额外奖励与全服广播。
+`[klkhk]plugin_qiandao_1.12.2` 是一套开箱即用的每日签到系统。玩家通过 `/qd` 打开图形化签到面板，一键领取当天奖励；插件以 **7 天为一个奖励周期**，第 7 天为终极大奖，第 8 天重新从第 1 天循环（连续天数继续累计）。漏签可以用**补签卡**补救，连续签到 7 / 14 / 30 天还有额外奖励与全服广播。
 
 所有奖励物品、金币数量、提示文本、音效粒子均可通过 `config.yml` 修改，**不需要改代码**。奖励通过控制台指令发放，因此可以接入任意物品 / 经济 / 点券插件。
 
@@ -66,7 +66,7 @@ QianDao 是一套开箱即用的每日签到系统。玩家通过 `/qd` 打开�
 
 ## 安装
 
-1. 到 [Releases](https://github.com/zhaobuobuo114/klkhk-plugin_qiandao/releases/latest) 下载插件本体 `klkhk.plugin_qiandao_1.12.2.jar`，放入服务端 `plugins/` 目录（也可按 [编译构建](#编译构建) 自行打包，产物为 `QianDao.jar`）。
+1. 到 [Releases](https://github.com/zhaobuobuo114/klkhk-plugin_qiandao/releases/latest) 下载插件本体 `[klkhk]plugin_qiandao_1.12.2.jar`（GitHub 显示为 `klkhk.plugin_qiandao_1.12.2.jar`，方括号被替换成点号），放入服务端 `plugins/` 目录（也可按 [编译构建](#编译构建) 自行打包，产物为 `QianDao.jar`）。
 2. 启动服务器，插件会自动生成 `plugins/QianDao/config.yml`。
 3. 按需修改 `config.yml`（奖励、金币、刷新时间等）。
 4. 执行 `/qd reload` 重载，或重启服务器。
