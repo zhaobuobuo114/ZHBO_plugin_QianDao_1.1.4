@@ -216,7 +216,8 @@ PAGE_TMPL = """<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title} · {site_title}</title>
 <meta name="description" content="{desc}">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230d1117'/%3E%3Cpath d='M9 8h9a5 5 0 0 1 0 10H9z' fill='none' stroke='%233fb950' stroke-width='2.6' stroke-linejoin='round'/%3E%3Cpath d='M9 18h11a5 5 0 0 1 0 10H9z' fill='none' stroke='%23e3b341' stroke-width='2.6' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="{root}assets/icon.svg">
+<link rel="apple-touch-icon" href="{root}assets/icon.svg">
 <link rel="stylesheet" href="{root}assets/style.css">
 </head>
 <body>
@@ -225,7 +226,7 @@ PAGE_TMPL = """<!DOCTYPE html>
     <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
   </button>
   <a class="brand" href="{root}index.html">
-    <span class="brand-mark">QD</span>
+    <img class="brand-mark" src="{root}assets/icon.svg" width="28" height="28" alt="">
     <span class="brand-text">{site_title}</span>
   </a>
   <div class="topbar-right">

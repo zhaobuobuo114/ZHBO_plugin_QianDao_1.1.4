@@ -77,17 +77,11 @@ a:hover { text-decoration: underline; }
 .brand:hover { text-decoration: none; }
 
 .brand-mark {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
+  flex: none;
   width: 28px;
   height: 28px;
   border-radius: 8px;
-  background: linear-gradient(135deg, var(--accent) 0%, #1f7a33 100%);
-  color: #06110a;
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.4px;
 }
 .brand-text { font-size: 15px; }
 
