@@ -6,7 +6,7 @@
 ![platform](https://img.shields.io/badge/platform-Spigot%20%7C%20Paper%201.12.2-orange)
 ![java](https://img.shields.io/badge/Java-8-blue)
 ![config](https://img.shields.io/badge/%E5%85%A8%E9%85%8D%E7%BD%AE%E5%8C%96-YAML-informational)
-[![download](https://img.shields.io/badge/%E4%B8%8B%E8%BD%BD-QianDao.jar-2ea44f?logo=github)](https://github.com/zhaobuobuo114/QianDao/releases/latest)
+[![download](https://img.shields.io/badge/%E4%B8%8B%E8%BD%BD-%5Bklkhk%5Dplugin__qiandao__1.12.2.jar-2ea44f?logo=github)](https://github.com/zhaobuobuo114/klkhk-plugin_qiandao/releases/latest)
 
 ---
 
@@ -62,7 +62,7 @@ QianDao 是一套开箱即用的每日签到系统。玩家通过 `/qd` 打开�
 
 ## 安装
 
-1. 下载 [QianDao.jar](https://github.com/zhaobuobuo114/QianDao/releases/latest/download/QianDao.jar)，放入服务端 `plugins/` 目录（也可按 [编译构建](#编译构建) 自行打包）。
+1. 到 [Releases](https://github.com/zhaobuobuo114/klkhk-plugin_qiandao/releases/latest) 下载插件本体 `klkhk.plugin_qiandao_1.12.2.jar`，放入服务端 `plugins/` 目录（也可按 [编译构建](#编译构建) 自行打包，产物为 `QianDao.jar`）。
 2. 启动服务器，插件会自动生成 `plugins/QianDao/config.yml`。
 3. 按需修改 `config.yml`（奖励、金币、刷新时间等）。
 4. 执行 `/qd reload` 重载，或重启服务器。
