@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-root="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>插件介绍 · 插件文档中心</title>
+<meta name="description" content="QianDao 签到插件功能总览">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230d1117'/%3E%3Cpath d='M9 8h9a5 5 0 0 1 0 10H9z' fill='none' stroke='%233fb950' stroke-width='2.6' stroke-linejoin='round'/%3E%3Cpath d='M9 18h11a5 5 0 0 1 0 10H9z' fill='none' stroke='%23e3b341' stroke-width='2.6' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="菜单">
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
+  <a class="brand" href="../index.html">
+    <span class="brand-mark">QD</span>
+    <span class="brand-text">插件文档中心</span>
+  </a>
+  <div class="topbar-right">
+    <button class="search-btn" id="searchBtn" type="button">
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16.5 16.5 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <span>搜索文档</span>
+      <kbd>/</kbd>
+    </button>
+    <a class="gh-link" href="https://github.com/zhaobuobuo114/klkhk-plugin_qiandao" target="_blank" rel="noopener" aria-label="GitHub 仓库">
+      <svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+    </a>
+  </div>
+</header>
+<div class="scrim" id="scrim"></div>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <nav class="nav"><div class="nav-group">
+<div class="nav-title">文档中心</div>
+<ul class="nav-items">
+<li><a class="nav-link" href="../index.html">首页</a></li>
+<li><a class="nav-link" href="../plugins.html">插件总览</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-title">QianDao 签到插件<span class="nav-badge">v1.1.4</span></div>
+<ul class="nav-items">
+<li><a class="nav-link is-active" href="../qiantao/index.html">插件介绍</a></li>
+<li><a class="nav-link" href="../qiantao/install.html">安装部署</a></li>
+<li><a class="nav-link" href="../qiantao/commands.html">指令与权限</a></li>
+<li><a class="nav-link" href="../qiantao/config.html">配置详解</a></li>
+<li><a class="nav-link" href="../qiantao/economy.html">经济联动</a></li>
+<li><a class="nav-link" href="../qiantao/faq.html">常见问题</a></li>
+<li><a class="nav-link" href="../qiantao/changelog.html">更新日志</a></li>
+</ul></div>
+<div class="nav-group">
+<div class="nav-title">服务与支持</div>
+<ul class="nav-items">
+<li><a class="nav-link" href="../custom.html">插件定制</a></li>
+<li><a class="nav-link" href="../maintain.html">文档维护指南</a></li>
+</ul></div></nav>
+    <div class="sidebar-foot">
+      <a class="btn-download" href="https://github.com/zhaobuobuo114/klkhk-plugin_qiandao/releases/latest" target="_blank" rel="noopener">下载最新版本</a>
+      <div class="sidebar-contact">定制 QQ 1071576270</div>
+    </div>
+  </aside>
+  <main class="main">
+    <div class="crumb"><a href="../index.html">文档中心</a><span class="sep">/</span><span>QianDao 签到插件</span><span class="sep">/</span><span class="cur">插件介绍</span></div>
+    <article class="markdown"><h1 id="qiandao">QianDao 签到插件</h1>
+<blockquote>
+<p>Minecraft <strong>1.12.2</strong>（Spigot / Paper）每日签到插件
+当前版本 <strong>v1.1.4</strong> · <a target="_blank" rel="noopener" href="https://github.com/zhaobuobuo114/klkhk-plugin_qiandao/releases/latest">下载插件</a></p>
+</blockquote>
+<hr />
+<h2 id="_1">这个插件做什么</h2>
+<p>玩家执行 <code>/qd</code> 打开图形化签到面板，每天点一次领取奖励。插件以 <strong>7 天为一个奖励周期</strong>，第 7 天是终极大奖，第 8 天重新从第 1 天开始，但连续签到天数继续累计。漏签可以用<strong>补签卡</strong>补回来，连续签到 7 / 14 / 30 天还有额外奖励和全服广播。</p>
+<p>所有奖励、金币、提示文字、音效粒子都在 <code>config.yml</code> 里改，<strong>不用改代码</strong>。</p>
+<h2 id="_2">功能一览</h2>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>每日签到</td>
+<td>每天一次，默认凌晨 4:00 刷新（时区、刷新时间可配置）</td>
+</tr>
+<tr>
+<td>七日周期</td>
+<td>第 1~7 天奖励逐天递增，第 7 天终极大奖，之后循环</td>
+</tr>
+<tr>
+<td>连续奖励</td>
+<td>连续 7 / 14 / 30 天额外奖励 + 全服广播，断签归零</td>
+</tr>
+<tr>
+<td>补签卡</td>
+<td>右键打开补签面板，可补最近 N 天漏签，补签后连续天数恢复</td>
+</tr>
+<tr>
+<td>在线奖励</td>
+<td>累计在线满设定时长自动发补签卡，每日有上限</td>
+</tr>
+<tr>
+<td>签到排行</td>
+<td>屏幕右侧实时计分板 + <code>/qd rank</code> 图形化排行榜</td>
+</tr>
+<tr>
+<td>金币联动</td>
+<td>ZPoints / PlayerPoints / Vault 三选一</td>
+</tr>
+<tr>
+<td>视听反馈</td>
+<td>签到标题、音效、粒子、今日槽位附魔发光，全部可开关</td>
+</tr>
+<tr>
+<td>数据安全</td>
+<td><code>data.yml</code> 定时异步保存，自动清理 60 天前旧记录</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_3">界面预览</h2>
+<p><strong>签到主面板（45 格）</strong></p>
+<ul>
+<li>第 5 格：玩家头颅，显示连续天数、累计次数、补签卡数量</li>
+<li>第 20~26 格：七日奖励展示，今日可领取的槽位附魔发光</li>
+<li>第 32 格：补签卡与持有数量</li>
+<li>底部：补签漏签日期 / 签到排行榜 / 关闭</li>
+</ul>
+<p><strong>补签面板（27 格）</strong>：列出最近 N 天可补签日期，点击后二次确认，消耗 1 张补签卡。</p>
+<p><strong>排行榜面板（45 格）</strong>：按连续天数排序，相同天数按累计次数排序。</p>
+<h2 id="_4">文档导航</h2>
+<ul>
+<li><a href="install.html">安装部署</a> — 装到哪里、怎么启动、怎么升级</li>
+<li><a href="commands.html">指令与权限</a> — 玩家命令、管理员命令、权限节点</li>
+<li><a href="config.html">配置详解</a> — 每一个配置项的含义与示例</li>
+<li><a href="economy.html">经济联动</a> — 让签到发点券或金币</li>
+<li><a href="faq.html">常见问题</a> — 金币没到账、排行榜不显示等</li>
+<li><a href="changelog.html">更新日志</a> — 版本变更记录</li>
+</ul>
+<h2 id="_5">环境要求</h2>
+<ul>
+<li>服务端：Spigot / Paper <strong>1.12.2</strong></li>
+<li>Java：<strong>8</strong> 及以上</li>
+<li>可选前置：Vault + 经济插件、PlayerPoints、ZPoints（不装也能正常签到，只是不发金币）</li>
+</ul></article>
+    <nav class="pager"><a class="pager-prev" href="../plugins.html"><span>上一页</span><strong>插件总览</strong></a><a class="pager-next" href="../qiantao/install.html"><span>下一页</span><strong>安装部署</strong></a></nav>
+    <footer class="pagefoot">
+      <div>承接所有版本 Minecraft 服务端插件定制</div>
+      <div>QQ <a href="https://wpa.qq.com/msgrd?v=3&uin=1071576270&site=qq&menu=yes" target="_blank" rel="noopener">1071576270</a> · 邮箱 <a href="mailto:1071576270@qq.com">1071576270@qq.com</a></div>
+    </footer>
+  </main>
+  <aside class="toc" id="toc">
+    <div class="toc-title">本页目录</div>
+    <ul class="toc-list"><li><a href="#_1">这个插件做什么</a></li><li><a href="#_2">功能一览</a></li><li><a href="#_3">界面预览</a></li><li><a href="#_4">文档导航</a></li><li><a href="#_5">环境要求</a></li></ul>
+  </aside>
+</div>
+<div class="search-modal" id="searchModal" hidden>
+  <div class="search-panel">
+    <div class="search-head">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16.5 16.5 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <input id="searchInput" type="search" placeholder="搜索文档标题、配置项、指令…" autocomplete="off">
+      <button id="searchClose" type="button" aria-label="关闭">ESC</button>
+    </div>
+    <div class="search-results" id="searchResults"></div>
+  </div>
+</div>
+<script src="../assets/app.js"></script>
+</body>
+</html>

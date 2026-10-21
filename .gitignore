@@ -19,3 +19,9 @@ Thumbs.db
 # 日志
 *.log
 logs/
+
+# 本地预览
+.preview/
+
+# 本地工作区数据
+.workbuddy/
