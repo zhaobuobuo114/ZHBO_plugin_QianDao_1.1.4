@@ -47,6 +47,8 @@ docs-src/pages/dailyquest/
 
 每个文件就是普通 Markdown，第一行用 `# 标题` 开始即可。
 
+> 直接复制 `docs-src/pages/_template/` 里的四个文件改一改最快，模板已包含介绍、安装、指令、FAQ 的标准结构。
+
 ### 第 2 步：在 site.json 里加一个分组
 
 ```json
