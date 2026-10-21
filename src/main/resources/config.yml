@@ -1,0 +1,224 @@
+# ============================================================
+#                    签到插件 QianDao 配置文件  v1.1.4
+#        适用版本: Minecraft 1.12.2  (Spigot / Paper)
+#        插件指令: /qd 打开签到面板  |  /qd reload 重载配置
+#        活动发卡: /qd givecard <玩家> [数量] (权限 qiandao.admin)
+#        提示: 升级后请删除旧 config.yml 重新生成, 以获得新配置项
+# ============================================================
+
+# ---------- 基础设置 ----------
+general:
+  # 时区(用于计算"今天"), 请按服务器所在地区填写
+  timezone: "Asia/Shanghai"
+  # 每日刷新时间(24小时制): 默认每日凌晨4点刷新, 可自行修改
+  refresh-hour: 4
+  refresh-minute: 0
+  # 玩家数据自动保存间隔(秒)
+  auto-save-seconds: 300
+
+# ---------- 七日签到周期奖励 ----------
+# 连续签到第 1~7 天为一个周期, 第 8 天重新从第 1 天开始, 但连续天数继续累计
+# icon:      GUI 中展示的物品图标(材质名, 支持任意 1.12.2 材质)
+# icon-data: (可选)图标子ID/耐久值, 如 5 = 龙头; 默认 0
+# name:      GUI 中展示的名称(支持 & 颜色代码)
+# display:   (可选)GUI 中展示的奖励说明文字; 不填写则直接显示 commands
+# commands:  以控制台身份执行的奖励指令, %player% 会被替换为玩家名
+#            可通过指令接入任意经济/物品插件, 实现完全自定义的奖励
+cycle:
+  1:
+    icon: "WOOD"
+    name: "&f第1天"
+    display:
+      - "&7铁锭 x5"
+    commands:
+      - "give %player% iron_ingot 5"
+  2:
+    icon: "COBBLESTONE"
+    name: "&f第2天"
+    display:
+      - "&7铁锭 x10"
+    commands:
+      - "give %player% iron_ingot 10"
+  3:
+    icon: "IRON_INGOT"
+    name: "&f第3天"
+    display:
+      - "&7金锭 x5"
+    commands:
+      - "give %player% gold_ingot 5"
+  4:
+    icon: "GOLD_INGOT"
+    name: "&f第4天"
+    display:
+      - "&7金苹果 x2"
+    commands:
+      - "give %player% golden_apple 2"
+  5:
+    icon: "DIAMOND"
+    name: "&f第5天"
+    display:
+      - "&7钻石 x3"
+    commands:
+      - "give %player% diamond 3"
+  6:
+    icon: "EMERALD"
+    name: "&f第6天"
+    display:
+      - "&7钻石 x6"
+      - "&7附魔之瓶 x12"
+    commands:
+      - "give %player% diamond 6"
+      - "give %player% experience_bottle 12"
+  7:
+    icon: "SKULL_ITEM"
+    icon-data: 5
+    name: "&6第7天 &e&l★终极大奖★"
+    display:
+      - "&6&l★ 全周期最豪华奖励 ★"
+      - "&7钻石 x16"
+      - "&7绿宝石 x10"
+      - "&7附魔金苹果 x2"
+    commands:
+      - "give %player% diamond 16"
+      - "give %player% emerald 10"
+      - "give %player% golden_apple 2 1"
+
+# ---------- 连续签到额外奖励 ----------
+# 连续签到达到指定天数时发放额外奖励(第7天周期奖励照常发放, 额外奖励叠加)
+# broadcast: 达成时全服广播, 留空 "" 则不广播
+milestones:
+  7:
+    display:
+      - "&7金锭 x8"
+    commands:
+      - "give %player% gold_ingot 8"
+    broadcast: "&e[签到] &6%player% &e已连续签到 &6&l7天 &e, 获得额外小奖励!"
+  14:
+    display:
+      - "&7钻石 x8"
+      - "&7金苹果 x3"
+    commands:
+      - "give %player% diamond 8"
+      - "give %player% golden_apple 3"
+    broadcast: "&e[签到] &6%player% &e已连续签到 &6&l14天 &e, 获得额外中奖励!"
+  30:
+    display:
+      - "&7钻石 x20"
+      - "&7绿宝石 x16"
+      - "&7附魔金苹果 x2"
+    commands:
+      - "give %player% diamond 20"
+      - "give %player% emerald 16"
+      - "give %player% golden_apple 2 1"
+    broadcast: "&e[签到] &6%player% &e已连续签到 &6&l30天 &e, 获得超级大奖励!"
+
+# ---------- 补签设置 ----------
+buqian:
+  # 是否启用补签功能
+  enabled: true
+  # 只能补签最近 N 天内漏签的日期 (建议不超过 7, 补签界面最多展示 7 个日期)
+  max-days: 3
+  # 补签后是否发放该日对应的周期奖励 (视为当天已签到)
+  give-cycle-reward: true
+  # 补签卡外观
+  item:
+    material: "PAPER"
+    name: "&a&l补签卡"
+    glow: true
+    lore:
+      - "&7右键使用"
+      - "&7可补签最近3天内漏签的日期"
+      - "&7补签后连续天数恢复"
+
+# ---------- 金币奖励(经济插件联动) ----------
+# 签到可获得金币, 直接进入所配置经济插件的账户, 可与其他插件一起使用
+# type 可选:
+#   none         - 不发放金币
+#   zpoints      - 发放为 ZPoints 插件的点券, 可直接在 ZPoints 商店/抽卡中使用(推荐)
+#   playerpoints - 发放为 PlayerPoints 插件的点券
+#   vault        - 发放为挂载 Vault 的经济插件的金钱(如 EssentialsX / Economy 插件)
+# 注意: 对应插件必须装在 plugins 文件夹中, 未检测到时金币奖励自动跳过
+economy:
+  type: "zpoints"
+  # 周期第1~7天每天签到获得的金币(第1个数 = 第1天 = 10 金币, 逐天递增, 第7天最多)
+  cycle-gold: [10, 12, 15, 18, 20, 25, 50]
+  # 连续签到里程碑额外金币: 达成连续 N 天时额外发放
+  streak-bonus:
+    7: 50
+    14: 100
+    30: 300
+  # 补签时是否发放金币 (发放第1天数量的金币)
+  buqian-gold: false
+
+# ---------- 在线奖励 ----------
+# 玩家累计在线达到指定时长, 自动发放补签卡 (补签卡的另一来源: 活动发放 /qd givecard)
+online-reward:
+  enabled: true
+  # 累计在线多少分钟获得 1 张补签卡
+  interval-minutes: 60
+  # 每天通过在线奖励最多获得几张补签卡 (每日刷新时间随 general.refresh-hour)
+  daily-max: 1
+
+# ---------- 签到排名 ----------
+ranking:
+  # 是否在屏幕右侧显示签到排行榜计分板 (false 关闭)
+  scoreboard-enable: true
+  # 计分板标题
+  scoreboard-title: "&6&l签到排行榜"
+  # 上榜人数(按连续签到天数排名, 相同天数按累计签到次数)
+  amount: 10
+
+# ---------- 音效与特效 ----------
+effects:
+  # 今日可签到的周期槽位是否附魔发光 (已签到的槽位不发光)
+  glow-today: true
+  # 音效总开关 (false 关闭所有音效)
+  sound-enable: true
+  # 各场景音效, 音效名参考 1.12.2: https://helpch.at/docs/1.12.2/
+  sound-sign: "ENTITY_PLAYER_LEVELUP"
+  sound-buqian: "ENTITY_PLAYER_LEVELUP"
+  sound-online-card: "ENTITY_ITEM_PICKUP"
+  sound-gui-click: "UI_BUTTON_CLICK"
+  sound-gui-error: "ENTITY_VILLAGER_NO"
+  # 签到/补签成功时的粒子特效 (false 关闭)
+  particle-enable: true
+  # 粒子类型, 如 FIREWORKS_SPARK / VILLAGER_HAPPY / FLAME 等
+  particle-type: "FIREWORKS_SPARK"
+  # 粒子数量 (1~200)
+  particle-amount: 30
+
+# ---------- 签到成功标题 ----------
+sign-title:
+  enable: true
+  main: "&6&l签到成功"
+  sub: "&e周期第{cycle}天奖励已发放"
+
+# ---------- 消息设置 ----------
+messages:
+  prefix: "&8[&6签到&8] &7"
+  sign-success: "&a签到成功! 连续签到 &e{streak} &a天 &7(周期第&e{cycle}&7天)&a, 奖励已发放~"
+  sign-already: "&c今天已经签到过啦, 明天再来吧!"
+  gold-granted: "&a同时获得 &e{gold} &a金币!"
+  milestone-reward: "&a恭喜连续签到达到 &e{streak} &a天, 额外奖励已发放!"
+  buqian-none: "&c最近没有可补签的漏签日期!"
+  buqian-no-card: "&c补签卡不足, 补签需要消耗 &e1 &c张补签卡!"
+  buqian-success: "&a补签成功! 已补签 &e{date} &a, 当前连续签到 &e{streak} &a天!"
+  card-got-online: "&a在线奖励: 你获得了 &e1 &a张补签卡!"
+  card-give: "&a已给予 &e{player} &a补签卡 x&e{card}"
+  card-receive: "&a你获得了 &e{card} &a张补签卡!"
+  card-inventory-full: "&c背包已满, 补签卡已掉落在地上!"
+  buqian-disabled: "&c补签功能已被管理员关闭!"
+  no-permission: "&c你没有权限执行该命令!"
+  player-not-found: "&c玩家不存在或不在线!"
+  player-only: "&c该命令只能由玩家执行!"
+  reload-success: "&a配置已重新加载!"
+  wrong-usage: "&c用法: {usage}"
+  # 普通玩家可见的帮助(权限 qiandao.use)
+  help-user:
+    - "&8&m--------&r &6签到插件帮助 &8&m--------"
+    - "&e/qd &7- 打开签到面板"
+    - "&e/qd rank &7- 查看签到排行榜"
+  # 管理员可见的额外帮助(权限 qiandao.admin)
+  help-admin:
+    - "&e/qd givecard <玩家> [数量] &7- 发放补签卡(管理员/活动)"
+    - "&e/qd reload &7- 重载配置文件(管理员)"
