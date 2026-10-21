@@ -7,10 +7,10 @@
 ![java](https://img.shields.io/badge/Java-8-blue)
 ![config](https://img.shields.io/badge/%E5%85%A8%E9%85%8D%E7%BD%AE%E5%8C%96-YAML-informational)
 [![download](https://img.shields.io/badge/%E4%B8%8B%E8%BD%BD-%5Bklkhk%5Dplugin__qiandao__1.12.2.jar-2ea44f?logo=github)](https://github.com/zhaobuobuo114/klkhk-plugin_qiandao/releases/latest)
-[![docs](https://img.shields.io/badge/%E6%96%87%E6%A1%A3-%E5%9C%A8%E7%BA%BF%E6%9F%A5%E7%9C%8B-3fb950)](https://zhaobuobuo114.github.io/klkhk-plugin_qiandao/)
+[![docs](https://img.shields.io/badge/%E6%96%87%E6%A1%A3-%E5%9C%A8%E7%BA%BF%E6%9F%A5%E7%9C%8B-3fb950)](https://zhaobuobuo114.github.io/plugin-wiki/qiantao/)
 
-> 📖 **在线文档**：<https://zhaobuobuo114.github.io/klkhk-plugin_qiandao/>
-> 支持侧边栏导航、全文搜索（按 `/` 唤起）与移动端适配，内容与本 README 同步。
+> 📖 **在线文档**：<https://zhaobuobuo114.github.io/plugin-wiki/qiantao/>
+> 文档已迁到独立的插件文档总站，本站只放代码与发布包。
 
 ---
 
