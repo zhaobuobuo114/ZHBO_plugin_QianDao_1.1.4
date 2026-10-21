@@ -23,6 +23,8 @@ SRC = ROOT / "docs-src"
 PAGES = SRC / "pages"
 OUT = ROOT / "docs"
 
+STATUS_TEXT = {"stable": "稳定", "beta": "测试", "wip": "开发中"}
+
 
 def load_site() -> dict:
     with (SRC / "site.json").open(encoding="utf-8") as fh:
@@ -63,6 +65,7 @@ def rewrite_links(text: str, slug: str, alias: dict) -> str:
 
 def plain_text(md_text: str) -> str:
     text = re.sub(r"```.*?```", " ", md_text, flags=re.S)
+    text = re.sub(r"\[\[[^\]]+\]\]", " ", text)
     text = re.sub(r"[#>*`|\-]{1,}", " ", text)
     text = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", text)
     text = re.sub(r"\s+", " ", text)
@@ -75,9 +78,7 @@ def build_toc(tokens, level: int = 0) -> str:
     cls = "toc-list" if level == 0 else "toc-sub"
     parts = [f'<ul class="{cls}">']
     for tok in tokens:
-        parts.append(
-            f'<li><a href="#{escape(tok["id"])}">{escape(tok["name"])}</a>'
-        )
+        parts.append(f'<li><a href="#{escape(tok["id"])}">{escape(tok["name"])}</a>')
         if tok.get("children"):
             parts.append(build_toc(tok["children"], level + 1))
         parts.append("</li>")
@@ -88,21 +89,124 @@ def build_toc(tokens, level: int = 0) -> str:
 def render_nav(site: dict, active_slug: str, root: str) -> str:
     out = []
     for group in site["groups"]:
-        out.append('<div class="nav-group">')
+        items = group["items"]
+        is_open = group.get("open", False) or any(it["slug"] == active_slug for it in items)
         badge = group.get("badge")
         badge_html = f'<span class="nav-badge">{escape(badge)}</span>' if badge else ""
-        out.append(
-            f'<div class="nav-title">{escape(group["title"])}{badge_html}</div>'
-        )
-        out.append('<ul class="nav-items">')
-        for item in group["items"]:
-            cls = "nav-link is-active" if item["slug"] == active_slug else "nav-link"
-            href = root + item["slug"]
+
+        if group.get("collapsible"):
             out.append(
-                f'<li><a class="{cls}" href="{href}">{escape(item["title"])}</a></li>'
+                f'<details class="nav-group nav-collapse"{" open" if is_open else ""}>'
             )
-        out.append("</ul></div>")
+            out.append(
+                f'<summary class="nav-title">{escape(group["title"])}{badge_html}'
+                '<svg class="nav-chevron" viewBox="0 0 16 16" width="12" height="12" aria-hidden="true">'
+                '<path d="M5 6l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.6" '
+                'stroke-linecap="round" stroke-linejoin="round"/></svg></summary>'
+            )
+        else:
+            out.append('<div class="nav-group">')
+            out.append(f'<div class="nav-title">{escape(group["title"])}{badge_html}</div>')
+
+        out.append('<ul class="nav-items">')
+        for item in items:
+            cls = "nav-link is-active" if item["slug"] == active_slug else "nav-link"
+            out.append(
+                f'<li><a class="{cls}" href="{root}{item["slug"]}">{escape(item["title"])}</a></li>'
+            )
+        out.append("</ul>")
+
+        out.append("</details>" if group.get("collapsible") else "</div>")
     return "\n".join(out)
+
+
+def render_stats(site: dict) -> str:
+    plugins = site.get("plugins") or []
+    page_count = sum(len(g["items"]) for g in site["groups"])
+    latest = max((p.get("updated", "") for p in plugins), default="")
+    stats = [
+        (str(len(plugins)), "个插件"),
+        (str(page_count), "篇文档"),
+        (latest or "—", "最近更新"),
+    ]
+    cells = "".join(
+        f'<div class="stat"><b>{escape(v)}</b><span>{escape(k)}</span></div>'
+        for v, k in stats
+    )
+    return f'<div class="stat-row">{cells}</div>'
+
+
+def render_cards(site: dict, root: str, limit: int | None = None) -> str:
+    plugins = list(site.get("plugins") or [])
+    if limit:
+        plugins = plugins[:limit]
+    cards = []
+    for p in plugins:
+        status = p.get("status", "stable")
+        tags = "".join(
+            f'<span class="pc-tag">{escape(t)}</span>' for t in p.get("tags", [])
+        )
+        haystack = " ".join(
+            [p.get("name", ""), p.get("fullName", ""), p.get("summary", "")] + p.get("tags", [])
+        )
+        cards.append(
+            f'<article class="plugin-card" data-text="{escape(haystack.lower())}">'
+            '<div class="pc-top">'
+            f'<div class="pc-name">{escape(p.get("name", ""))}'
+            f'<span class="pc-ver">{escape(p.get("version", ""))}</span></div>'
+            f'<span class="pc-status is-{escape(status)}">{escape(STATUS_TEXT.get(status, status))}</span>'
+            "</div>"
+            f'<p class="pc-desc">{escape(p.get("summary", ""))}</p>'
+            f'<div class="pc-tags"><span class="pc-tag pc-tag-mc">{escape(p.get("mc", ""))}</span>{tags}</div>'
+            '<div class="pc-actions">'
+            f'<a class="pc-btn" href="{root}{escape(p.get("docs", ""))}">查看文档</a>'
+            f'<a class="pc-btn pc-btn-ghost" href="{escape(p.get("download", ""))}" '
+            'target="_blank" rel="noopener">下载</a>'
+            "</div></article>"
+        )
+    if not cards:
+        return '<div class="plugin-empty">还没有上架的插件。</div>'
+    return f'<div class="plugin-grid">{"".join(cards)}</div>'
+
+
+def render_filter() -> str:
+    return (
+        '<div class="plugin-filter">'
+        '<input id="pluginFilter" type="search" '
+        'placeholder="搜插件名或标签，比如「签到」「经济」" autocomplete="off">'
+        '<span class="filter-count" id="pluginCount"></span>'
+        "</div>"
+    )
+
+
+def render_meta(site: dict, plugin_id: str) -> str:
+    plugin = next((p for p in site.get("plugins", []) if p["id"] == plugin_id), None)
+    if not plugin:
+        return ""
+    status = plugin.get("status", "stable")
+    return (
+        '<div class="meta-bar">'
+        f'<span class="meta-chip"><b>版本</b>{escape(plugin.get("version", ""))}</span>'
+        f'<span class="meta-chip"><b>适用</b>Minecraft {escape(plugin.get("mc", ""))}</span>'
+        f'<span class="meta-chip"><b>状态</b>{escape(STATUS_TEXT.get(status, status))}</span>'
+        f'<span class="meta-chip"><b>更新</b>{escape(plugin.get("updated", ""))}</span>'
+        f'<a class="meta-chip meta-chip-link" href="{escape(plugin.get("download", ""))}" '
+        'target="_blank" rel="noopener">下载 jar</a>'
+        "</div>"
+    )
+
+
+def apply_placeholders(text: str, site: dict, root: str) -> str:
+    if "[[STATS]]" in text:
+        text = text.replace("[[STATS]]", "\n\n" + render_stats(site) + "\n\n")
+    if "[[PLUGINS_TOP]]" in text:
+        text = text.replace("[[PLUGINS_TOP]]", "\n\n" + render_cards(site, root, limit=3) + "\n\n")
+    if "[[PLUGINS]]" in text:
+        block = render_filter() + render_cards(site, root)
+        text = text.replace("[[PLUGINS]]", "\n\n" + block + "\n\n")
+    for match in set(re.findall(r"\[\[META:([a-z0-9_-]+)\]\]", text)):
+        text = text.replace(f"[[META:{match}]]", "\n\n" + render_meta(site, match) + "\n\n")
+    return text
 
 
 PAGE_TMPL = """<!DOCTYPE html>
@@ -149,7 +253,7 @@ PAGE_TMPL = """<!DOCTYPE html>
     <article class="markdown">{content}</article>
     <nav class="pager">{pager}</nav>
     <footer class="pagefoot">
-      <div>承接所有版本 Minecraft 服务端插件定制</div>
+      <div>承接所有版本 Minecraft 服务端插件定制 · 需求直说，工期和报价也直说</div>
       <div>QQ <a href="https://wpa.qq.com/msgrd?v=3&uin={qq}&site=qq&menu=yes" target="_blank" rel="noopener">{qq}</a> · 邮箱 <a href="mailto:{email}">{email}</a></div>
     </footer>
   </main>
@@ -194,6 +298,12 @@ def main() -> int:
         raw = src_file.read_text(encoding="utf-8")
         raw = rewrite_links(raw, item["slug"], alias)
 
+        slug = item["slug"]
+        depth = len(posixpath.dirname(slug).split("/")) if posixpath.dirname(slug) else 0
+        root = "../" * depth
+
+        raw = apply_placeholders(raw, site, root)
+
         md = markdown.Markdown(
             extensions=[
                 "fenced_code",
@@ -211,16 +321,12 @@ def main() -> int:
         )
         toc_html = build_toc(md.toc_tokens)
 
-        slug = item["slug"]
-        depth = len(posixpath.dirname(slug).split("/")) if posixpath.dirname(slug) else 0
-        root = "../" * depth
-
         crumb_parts = [f'<a href="{root}index.html">文档中心</a>']
-        if group["title"] != "文档中心":
+        if group["title"] != "开始":
             crumb_parts.append(
                 f'<span class="sep">/</span><span>{escape(group["title"])}</span>'
             )
-        if not (item["slug"] == "index.html" and group["title"] == "文档中心"):
+        if not (item["slug"] == "index.html" and group["title"] == "开始"):
             crumb_parts.append(
                 f'<span class="sep">/</span><span class="cur">{escape(item["title"])}</span>'
             )
@@ -240,9 +346,13 @@ def main() -> int:
                 f'<span>下一页</span><strong>{escape(next_item["title"])}</strong></a>'
             )
 
+        page_title = item["title"]
+        if group.get("prefix"):
+            page_title = f'{group["prefix"]} · {item["title"]}'
+
         html_out = PAGE_TMPL.format(
             root=root,
-            title=escape(item["title"]),
+            title=escape(page_title),
             site_title=escape(site["siteTitle"]),
             desc=escape(item.get("desc", site["description"])),
             repo=site["repo"],

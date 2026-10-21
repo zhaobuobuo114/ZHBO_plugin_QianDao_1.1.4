@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>插件介绍 · 插件文档中心</title>
+<title>QianDao · 插件介绍 · 插件文档中心</title>
 <meta name="description" content="QianDao 签到插件功能总览">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230d1117'/%3E%3Cpath d='M9 8h9a5 5 0 0 1 0 10H9z' fill='none' stroke='%233fb950' stroke-width='2.6' stroke-linejoin='round'/%3E%3Cpath d='M9 18h11a5 5 0 0 1 0 10H9z' fill='none' stroke='%23e3b341' stroke-width='2.6' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="../assets/style.css">
@@ -32,13 +32,14 @@
 <div class="layout">
   <aside class="sidebar" id="sidebar">
     <nav class="nav"><div class="nav-group">
-<div class="nav-title">文档中心</div>
+<div class="nav-title">开始</div>
 <ul class="nav-items">
 <li><a class="nav-link" href="../index.html">首页</a></li>
-<li><a class="nav-link" href="../plugins.html">插件总览</a></li>
-</ul></div>
-<div class="nav-group">
-<div class="nav-title">QianDao 签到插件<span class="nav-badge">v1.1.4</span></div>
+<li><a class="nav-link" href="../plugins.html">插件库</a></li>
+</ul>
+</div>
+<details class="nav-group nav-collapse" open>
+<summary class="nav-title">QianDao 签到插件<span class="nav-badge">v1.1.4</span><svg class="nav-chevron" viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M5 6l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
 <ul class="nav-items">
 <li><a class="nav-link is-active" href="../qiantao/index.html">插件介绍</a></li>
 <li><a class="nav-link" href="../qiantao/install.html">安装部署</a></li>
@@ -47,13 +48,15 @@
 <li><a class="nav-link" href="../qiantao/economy.html">经济联动</a></li>
 <li><a class="nav-link" href="../qiantao/faq.html">常见问题</a></li>
 <li><a class="nav-link" href="../qiantao/changelog.html">更新日志</a></li>
-</ul></div>
+</ul>
+</details>
 <div class="nav-group">
 <div class="nav-title">服务与支持</div>
 <ul class="nav-items">
 <li><a class="nav-link" href="../custom.html">插件定制</a></li>
 <li><a class="nav-link" href="../maintain.html">文档维护指南</a></li>
-</ul></div></nav>
+</ul>
+</div></nav>
     <div class="sidebar-foot">
       <a class="btn-download" href="https://github.com/zhaobuobuo114/klkhk-plugin_qiandao/releases/latest" target="_blank" rel="noopener">下载最新版本</a>
       <div class="sidebar-contact">定制 QQ 1071576270</div>
@@ -62,14 +65,20 @@
   <main class="main">
     <div class="crumb"><a href="../index.html">文档中心</a><span class="sep">/</span><span>QianDao 签到插件</span><span class="sep">/</span><span class="cur">插件介绍</span></div>
     <article class="markdown"><h1 id="qiandao">QianDao 签到插件</h1>
+<div class="meta-bar"><span class="meta-chip"><b>版本</b>v1.1.4</span><span class="meta-chip"><b>适用</b>Minecraft 1.12.2</span><span class="meta-chip"><b>状态</b>稳定</span><span class="meta-chip"><b>更新</b>2026-10-21</span><a class="meta-chip meta-chip-link" href="https://github.com/zhaobuobuo114/klkhk-plugin_qiandao/releases/latest" target="_blank" rel="noopener">下载 jar</a></div>
+
 <blockquote>
-<p>Minecraft <strong>1.12.2</strong>（Spigot / Paper）每日签到插件
-当前版本 <strong>v1.1.4</strong> · <a target="_blank" rel="noopener" href="https://github.com/zhaobuobuo114/klkhk-plugin_qiandao/releases/latest">下载插件</a></p>
+<p>一个 1.12.2 的签到插件。玩家点一下，奖励到手；管理员不用改代码，改 <code>config.yml</code> 就能调整整套奖励体系。</p>
 </blockquote>
-<hr />
-<h2 id="_1">这个插件做什么</h2>
-<p>玩家执行 <code>/qd</code> 打开图形化签到面板，每天点一次领取奖励。插件以 <strong>7 天为一个奖励周期</strong>，第 7 天是终极大奖，第 8 天重新从第 1 天开始，但连续签到天数继续累计。漏签可以用<strong>补签卡</strong>补回来，连续签到 7 / 14 / 30 天还有额外奖励和全服广播。</p>
-<p>所有奖励、金币、提示文字、音效粒子都在 <code>config.yml</code> 里改，<strong>不用改代码</strong>。</p>
+<h2 id="_1">它解决什么问题</h2>
+<p>大部分签到插件只做到「每天给个东西」。QianDao 多做了一步：让玩家<strong>舍不得断签</strong>。</p>
+<ul>
+<li>断签有补签卡兜底，不至于一天没上线就前功尽弃</li>
+<li>连续 7 / 14 / 30 天有额外奖励，全服广播，面子也是奖励</li>
+<li>右侧实时排行榜，不用管理员天天喊「今天谁还没签到」</li>
+<li>金币直接进 ZPoints / PlayerPoints / Vault，不用再养一套经济系统</li>
+</ul>
+<p>反过来也要说清楚它的边界：奖励全部通过<strong>控制台指令</strong>发放，所以能接任何物品、经济、点券插件；它不内置商店、不做每日任务，保持单一职责。这些需求交给别的插件，或者 <a href="../custom.html">定制</a>。</p>
 <h2 id="_2">功能一览</h2>
 <table>
 <thead>
@@ -113,44 +122,48 @@
 </tr>
 <tr>
 <td>数据安全</td>
-<td><code>data.yml</code> 定时异步保存，自动清理 60 天前旧记录</td>
+<td><code>data.yml</code> 定时异步保存，自动清理 60 天前的旧记录</td>
 </tr>
 </tbody>
 </table>
-<h2 id="_3">界面预览</h2>
+<h2 id="_3">界面长什么样</h2>
 <p><strong>签到主面板（45 格）</strong></p>
 <ul>
 <li>第 5 格：玩家头颅，显示连续天数、累计次数、补签卡数量</li>
-<li>第 20~26 格：七日奖励展示，今日可领取的槽位附魔发光</li>
-<li>第 32 格：补签卡与持有数量</li>
+<li>第 20~26 格：七日奖励展示，今天能领的那格附魔发光</li>
+<li>第 32 格：补签卡与当前持有数量</li>
 <li>底部：补签漏签日期 / 签到排行榜 / 关闭</li>
 </ul>
-<p><strong>补签面板（27 格）</strong>：列出最近 N 天可补签日期，点击后二次确认，消耗 1 张补签卡。</p>
-<p><strong>排行榜面板（45 格）</strong>：按连续天数排序，相同天数按累计次数排序。</p>
+<p><strong>补签面板（27 格）</strong>：列出最近 N 天可补签的日期，点击后二次确认，确认才扣卡。防止手滑，也防止玩家误点。</p>
+<p><strong>排行榜面板（45 格）</strong>：按连续天数排，同天数看累计次数。右侧计分板是同一套数据，每分钟刷新一次。</p>
 <h2 id="_4">文档导航</h2>
 <ul>
-<li><a href="install.html">安装部署</a> — 装到哪里、怎么启动、怎么升级</li>
-<li><a href="commands.html">指令与权限</a> — 玩家命令、管理员命令、权限节点</li>
-<li><a href="config.html">配置详解</a> — 每一个配置项的含义与示例</li>
+<li><a href="install.html">安装部署</a> — jar 放哪、什么时候重启、升级怎么不冲掉配置</li>
+<li><a href="commands.html">指令与权限</a> — 玩家命令、管理命令、权限节点</li>
+<li><a href="config.html">配置详解</a> — 每个配置项干什么、默认值是多少</li>
 <li><a href="economy.html">经济联动</a> — 让签到发点券或金币</li>
-<li><a href="faq.html">常见问题</a> — 金币没到账、排行榜不显示等</li>
-<li><a href="changelog.html">更新日志</a> — 版本变更记录</li>
+<li><a href="faq.html">常见问题</a> — 金币没到账、排行榜不显示、补签没日期</li>
+<li><a href="changelog.html">更新日志</a> — 这个版本改了什么</li>
 </ul>
 <h2 id="_5">环境要求</h2>
 <ul>
 <li>服务端：Spigot / Paper <strong>1.12.2</strong></li>
 <li>Java：<strong>8</strong> 及以上</li>
-<li>可选前置：Vault + 经济插件、PlayerPoints、ZPoints（不装也能正常签到，只是不发金币）</li>
-</ul></article>
-    <nav class="pager"><a class="pager-prev" href="../plugins.html"><span>上一页</span><strong>插件总览</strong></a><a class="pager-next" href="../qiantao/install.html"><span>下一页</span><strong>安装部署</strong></a></nav>
+<li>可选前置：Vault + 经济插件、PlayerPoints、ZPoints</li>
+</ul>
+<p>前置都是 softdepend：不装也能正常签到，只是对应金币奖励自动跳过，控制台会告诉你跳过了。</p>
+<blockquote>
+<p>这是 1.12.2 专用构建，材质和音效用的是 1.12.2 的命名。1.13+ 请走定制，别硬塞。</p>
+</blockquote></article>
+    <nav class="pager"><a class="pager-prev" href="../plugins.html"><span>上一页</span><strong>插件库</strong></a><a class="pager-next" href="../qiantao/install.html"><span>下一页</span><strong>安装部署</strong></a></nav>
     <footer class="pagefoot">
-      <div>承接所有版本 Minecraft 服务端插件定制</div>
+      <div>承接所有版本 Minecraft 服务端插件定制 · 需求直说，工期和报价也直说</div>
       <div>QQ <a href="https://wpa.qq.com/msgrd?v=3&uin=1071576270&site=qq&menu=yes" target="_blank" rel="noopener">1071576270</a> · 邮箱 <a href="mailto:1071576270@qq.com">1071576270@qq.com</a></div>
     </footer>
   </main>
   <aside class="toc" id="toc">
     <div class="toc-title">本页目录</div>
-    <ul class="toc-list"><li><a href="#_1">这个插件做什么</a></li><li><a href="#_2">功能一览</a></li><li><a href="#_3">界面预览</a></li><li><a href="#_4">文档导航</a></li><li><a href="#_5">环境要求</a></li></ul>
+    <ul class="toc-list"><li><a href="#_1">它解决什么问题</a></li><li><a href="#_2">功能一览</a></li><li><a href="#_3">界面长什么样</a></li><li><a href="#_4">文档导航</a></li><li><a href="#_5">环境要求</a></li></ul>
   </aside>
 </div>
 <div class="search-modal" id="searchModal" hidden>

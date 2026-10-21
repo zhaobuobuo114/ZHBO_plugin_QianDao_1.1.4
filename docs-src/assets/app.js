@@ -87,6 +87,28 @@
     });
   }
 
+  /* plugin filter */
+  var filterInput = document.getElementById("pluginFilter");
+  if (filterInput) {
+    var cards = Array.prototype.slice.call(
+      document.querySelectorAll(".plugin-card")
+    );
+    var countEl = document.getElementById("pluginCount");
+    var applyFilter = function () {
+      var q = filterInput.value.trim().toLowerCase();
+      var shown = 0;
+      cards.forEach(function (card) {
+        var hay = card.getAttribute("data-text") || "";
+        var hit = !q || hay.indexOf(q) > -1;
+        card.style.display = hit ? "" : "none";
+        if (hit) shown++;
+      });
+      if (countEl) countEl.textContent = shown + " / " + cards.length;
+    };
+    filterInput.addEventListener("input", applyFilter);
+    applyFilter();
+  }
+
   /* search */
   var modal = document.getElementById("searchModal");
   var input = document.getElementById("searchInput");

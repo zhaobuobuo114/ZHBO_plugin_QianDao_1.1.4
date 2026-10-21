@@ -32,13 +32,14 @@
 <div class="layout">
   <aside class="sidebar" id="sidebar">
     <nav class="nav"><div class="nav-group">
-<div class="nav-title">文档中心</div>
+<div class="nav-title">开始</div>
 <ul class="nav-items">
 <li><a class="nav-link" href="index.html">首页</a></li>
-<li><a class="nav-link" href="plugins.html">插件总览</a></li>
-</ul></div>
-<div class="nav-group">
-<div class="nav-title">QianDao 签到插件<span class="nav-badge">v1.1.4</span></div>
+<li><a class="nav-link" href="plugins.html">插件库</a></li>
+</ul>
+</div>
+<details class="nav-group nav-collapse" open>
+<summary class="nav-title">QianDao 签到插件<span class="nav-badge">v1.1.4</span><svg class="nav-chevron" viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M5 6l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
 <ul class="nav-items">
 <li><a class="nav-link" href="qiantao/index.html">插件介绍</a></li>
 <li><a class="nav-link" href="qiantao/install.html">安装部署</a></li>
@@ -47,13 +48,15 @@
 <li><a class="nav-link" href="qiantao/economy.html">经济联动</a></li>
 <li><a class="nav-link" href="qiantao/faq.html">常见问题</a></li>
 <li><a class="nav-link" href="qiantao/changelog.html">更新日志</a></li>
-</ul></div>
+</ul>
+</details>
 <div class="nav-group">
 <div class="nav-title">服务与支持</div>
 <ul class="nav-items">
 <li><a class="nav-link" href="custom.html">插件定制</a></li>
 <li><a class="nav-link is-active" href="maintain.html">文档维护指南</a></li>
-</ul></div></nav>
+</ul>
+</div></nav>
     <div class="sidebar-foot">
       <a class="btn-download" href="https://github.com/zhaobuobuo114/klkhk-plugin_qiandao/releases/latest" target="_blank" rel="noopener">下载最新版本</a>
       <div class="sidebar-contact">定制 QQ 1071576270</div>
@@ -62,45 +65,56 @@
   <main class="main">
     <div class="crumb"><a href="index.html">文档中心</a><span class="sep">/</span><span>服务与支持</span><span class="sep">/</span><span class="cur">文档维护指南</span></div>
     <article class="markdown"><h1 id="_1">文档维护指南</h1>
-<p>这份文档说明<strong>如何往站点里新增一个插件</strong>。整套站点是静态生成的，不需要数据库、不需要后台。</p>
+<p>这份文档写给以后要往站点里加插件的自己。整套站点是静态生成的：没有数据库，没有后台，改完跑一条命令就发布。</p>
 <hr />
 <h2 id="_2">一、站点是怎么工作的</h2>
-<pre><code>docs-src/                 文档源文件（你编辑这里）
-├─ site.json              站点配置：标题、导航分组、页面清单
-└─ pages/
-   ├─ home.md             首页
-   ├─ plugins.md          插件总览
-   ├─ custom.md           插件定制
-   ├─ maintain.md         本文
-   └─ qiantao/            每个插件一个目录
-      ├─ intro.md
-      ├─ install.md
-      └─ ...
+<pre><code class="language-text">docs-src/                 文档源文件（编辑这里）
+├─ site.json              站点配置：标题、插件清单、导航分组
+├─ pages/
+│  ├─ home.md             首页
+│  ├─ plugins.md          插件库
+│  ├─ custom.md           插件定制
+│  ├─ maintain.md         本文
+│  ├─ _template/          新插件模板
+│  └─ qiantao/            每个插件一个目录
+│     ├─ intro.md
+│     ├─ install.md
+│     └─ ...
 
-tools/build_wiki.py       构建脚本：Markdown → docs/ 静态站
+tools/build_wiki.py       构建：Markdown → docs/ 静态站
 docs/                     GitHub Pages 发布目录（自动生成，不要手改）
 </code></pre>
-<p>执行构建：</p>
+<p>构建命令：</p>
 <pre><code class="language-bash">python tools/build_wiki.py
 </code></pre>
-<p>它会读取 <code>site.json</code> 与 <code>pages/</code>，生成完整的 <code>docs/</code>：每页一个 HTML、统一侧边栏、目录、页码导航和搜索索引。</p>
-<h2 id="4">二、新增一个插件（4 步）</h2>
-<h3 id="1">第 1 步：建目录与页面</h3>
-<p>假设新插件叫 <code>DailyQuest</code>：</p>
-<pre><code>docs-src/pages/dailyquest/
-├─ intro.md       插件介绍
-├─ install.md     安装部署
-├─ commands.md    指令与权限
-└─ faq.md         常见问题
+<h2 id="_3">二、新增一个插件（四步）</h2>
+<h3 id="1-sitejson-plugins">第 1 步：在 <code>site.json</code> 的 <code>plugins</code> 里登记</h3>
+<pre><code class="language-json">{
+  &quot;id&quot;: &quot;dailyquest&quot;,
+  &quot;name&quot;: &quot;DailyQuest&quot;,
+  &quot;fullName&quot;: &quot;DailyQuest 每日任务&quot;,
+  &quot;version&quot;: &quot;v1.0.0&quot;,
+  &quot;mc&quot;: &quot;1.12.2&quot;,
+  &quot;status&quot;: &quot;stable&quot;,
+  &quot;updated&quot;: &quot;2026-10-21&quot;,
+  &quot;summary&quot;: &quot;一句话说清它解决什么问题，别写形容词。&quot;,
+  &quot;tags&quot;: [&quot;任务&quot;, &quot;活跃度&quot;, &quot;奖励&quot;],
+  &quot;docs&quot;: &quot;dailyquest/index.html&quot;,
+  &quot;download&quot;: &quot;https://github.com/.../releases/latest&quot;
+}
 </code></pre>
-<p>每个文件就是普通 Markdown，第一行用 <code># 标题</code> 开始即可。</p>
-<blockquote>
-<p>直接复制 <code>docs-src/pages/_template/</code> 里的四个文件改一改最快，模板已包含介绍、安装、指令、FAQ 的标准结构。</p>
-</blockquote>
-<h3 id="2-sitejson">第 2 步：在 site.json 里加一个分组</h3>
+<p><code>status</code> 只能是 <code>stable</code> / <code>beta</code> / <code>wip</code>，分别显示为「稳定 / 测试 / 开发中」。</p>
+<p>登记后，首页和 <a href="plugins.html">插件库</a> 的卡片会自动出现，不用手写 HTML。</p>
+<h3 id="2">第 2 步：复制模板</h3>
+<pre><code class="language-bash">cp -r docs-src/pages/_template docs-src/pages/dailyquest
+</code></pre>
+<p>模板里有四个文件：介绍、安装、指令、FAQ。改内容即可。</p>
+<h3 id="3-groups">第 3 步：在 <code>groups</code> 里加一个分组</h3>
 <pre><code class="language-json">{
   &quot;title&quot;: &quot;DailyQuest 每日任务&quot;,
   &quot;badge&quot;: &quot;v1.0.0&quot;,
+  &quot;prefix&quot;: &quot;DailyQuest&quot;,
+  &quot;collapsible&quot;: true,
   &quot;items&quot;: [
     { &quot;title&quot;: &quot;插件介绍&quot;, &quot;slug&quot;: &quot;dailyquest/index.html&quot;, &quot;source&quot;: &quot;dailyquest/intro.md&quot;, &quot;alias&quot;: [&quot;DailyQuest-介绍&quot;] },
     { &quot;title&quot;: &quot;安装部署&quot;, &quot;slug&quot;: &quot;dailyquest/install.html&quot;, &quot;source&quot;: &quot;dailyquest/install.md&quot;, &quot;alias&quot;: [&quot;DailyQuest-安装&quot;] },
@@ -109,7 +123,6 @@ docs/                     GitHub Pages 发布目录（自动生成，不要手�
   ]
 }
 </code></pre>
-<p>字段说明：</p>
 <table>
 <thead>
 <tr>
@@ -120,7 +133,23 @@ docs/                     GitHub Pages 发布目录（自动生成，不要手�
 <tbody>
 <tr>
 <td><code>title</code></td>
-<td>侧边栏与页面标题</td>
+<td>侧边栏分组名</td>
+</tr>
+<tr>
+<td><code>badge</code></td>
+<td>分组右侧的版本小标签</td>
+</tr>
+<tr>
+<td><code>prefix</code></td>
+<td>页面浏览器标题的前缀，如「DailyQuest · 安装部署」</td>
+</tr>
+<tr>
+<td><code>collapsible</code></td>
+<td>是否折叠，插件多了建议开</td>
+</tr>
+<tr>
+<td><code>open</code></td>
+<td>默认展开（可选）</td>
 </tr>
 <tr>
 <td><code>slug</code></td>
@@ -132,59 +161,86 @@ docs/                     GitHub Pages 发布目录（自动生成，不要手�
 </tr>
 <tr>
 <td><code>alias</code></td>
-<td>可选，站内链接别名，写 <code>[安装](DailyQuest-安装)</code> 就能跳转</td>
-</tr>
-<tr>
-<td><code>desc</code></td>
-<td>可选，页面描述（用于 meta 与搜索结果）</td>
+<td>站内链接别名，写 <code>[安装](DailyQuest-安装)</code> 就能跳</td>
 </tr>
 </tbody>
 </table>
-<h3 id="3">第 3 步：更新插件总览</h3>
-<p>编辑 <code>docs-src/pages/plugins.md</code>，在表格里加一行：</p>
-<pre><code class="language-markdown">| [DailyQuest 每日任务](DailyQuest-介绍) | 1.12.2 | v1.0.0 | 每日任务 / 活跃度 / 奖励 |
-</code></pre>
-<h3 id="4_1">第 4 步：构建并发布</h3>
+<h3 id="4">第 4 步：构建并发布</h3>
 <pre><code class="language-bash">python tools/build_wiki.py
 git add -A
 git commit -m &quot;docs: 新增 DailyQuest 文档&quot;
 git push
 </code></pre>
-<p>推送后 GitHub Pages 会自动重新发布（约 1 分钟）。</p>
-<h2 id="_3">三、写作规范</h2>
+<p>推送后 GitHub Pages 自动重新发布，大约一分钟。</p>
+<h2 id="_4">三、页面里能用的占位符</h2>
+<p>在 Markdown 里单独一行写占位符，构建时会替换成生成的 HTML（前后要留空行）：</p>
+<table>
+<thead>
+<tr>
+<th>占位符</th>
+<th>生成内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>`</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="stat-row"><div class="stat"><b>1</b><span>个插件</span></div><div class="stat"><b>11</b><span>篇文档</span></div><div class="stat"><b>2026-10-21</b><span>最近更新</span></div></div>
+
+<p><code>| 插件数 / 文档数 / 最近更新 |
+|</code></p>
+<div class="plugin-filter"><input id="pluginFilter" type="search" placeholder="搜插件名或标签，比如「签到」「经济」" autocomplete="off"><span class="filter-count" id="pluginCount"></span></div>
+<div class="plugin-grid"><article class="plugin-card" data-text="qiandao qiandao 签到插件 七日周期签到，断签能补，连续有奖，金币直接进 zpoints / playerpoints / vault。 签到 补签卡 排行榜 经济联动 gui"><div class="pc-top"><div class="pc-name">QianDao<span class="pc-ver">v1.1.4</span></div><span class="pc-status is-stable">稳定</span></div><p class="pc-desc">七日周期签到，断签能补，连续有奖，金币直接进 ZPoints / PlayerPoints / Vault。</p><div class="pc-tags"><span class="pc-tag pc-tag-mc">1.12.2</span><span class="pc-tag">签到</span><span class="pc-tag">补签卡</span><span class="pc-tag">排行榜</span><span class="pc-tag">经济联动</span><span class="pc-tag">GUI</span></div><div class="pc-actions"><a class="pc-btn" href="qiantao/index.html">查看文档</a><a class="pc-btn pc-btn-ghost" href="https://github.com/zhaobuobuo114/klkhk-plugin_qiandao/releases/latest" target="_blank" rel="noopener">下载</a></div></article></div>
+
+<p><code>| 带搜索框的插件卡片网格（插件库用） |
+|</code></p>
+<div class="plugin-grid"><article class="plugin-card" data-text="qiandao qiandao 签到插件 七日周期签到，断签能补，连续有奖，金币直接进 zpoints / playerpoints / vault。 签到 补签卡 排行榜 经济联动 gui"><div class="pc-top"><div class="pc-name">QianDao<span class="pc-ver">v1.1.4</span></div><span class="pc-status is-stable">稳定</span></div><p class="pc-desc">七日周期签到，断签能补，连续有奖，金币直接进 ZPoints / PlayerPoints / Vault。</p><div class="pc-tags"><span class="pc-tag pc-tag-mc">1.12.2</span><span class="pc-tag">签到</span><span class="pc-tag">补签卡</span><span class="pc-tag">排行榜</span><span class="pc-tag">经济联动</span><span class="pc-tag">GUI</span></div><div class="pc-actions"><a class="pc-btn" href="qiantao/index.html">查看文档</a><a class="pc-btn pc-btn-ghost" href="https://github.com/zhaobuobuo114/klkhk-plugin_qiandao/releases/latest" target="_blank" rel="noopener">下载</a></div></article></div>
+
+<p><code>| 前 3 个插件卡片（首页用） |
+|</code></p>
+<div class="meta-bar"><span class="meta-chip"><b>版本</b>v1.1.4</span><span class="meta-chip"><b>适用</b>Minecraft 1.12.2</span><span class="meta-chip"><b>状态</b>稳定</span><span class="meta-chip"><b>更新</b>2026-10-21</span><a class="meta-chip meta-chip-link" href="https://github.com/zhaobuobuo114/klkhk-plugin_qiandao/releases/latest" target="_blank" rel="noopener">下载 jar</a></div>
+
+<p>` | 该插件的版本、适用版本、状态、更新时间、下载按钮 |</p>
+<p>目前只有首页、插件库和插件介绍页用到，其他页面不需要。</p>
+<h2 id="_5">四、写作规范</h2>
 <ul>
-<li>一个页面只讲一件事，标题层级从 <code>#</code> 开始，正文用 <code>##</code> / <code>###</code></li>
-<li>配置项用代码块，并标注默认值</li>
-<li>命令用表格列出：指令 / 作用 / 权限</li>
-<li>涉及数值的地方写清单位（秒、分钟、游戏内金币）</li>
-<li>站内链接统一用别名，例如 <code>[配置详解](qiantao/config.html)</code>，构建时会自动转成正确路径</li>
-<li>外部链接会自动在新标签页打开</li>
+<li><strong>先给结论，再给原因</strong>。比如「升级前先删 config.yml」放在前面，为什么放后面。</li>
+<li><strong>配置项写清默认值</strong>，读者不用回去翻文件。</li>
+<li><strong>命令用表格</strong>：指令 / 作用 / 权限，三列够了。</li>
+<li><strong>坑要标出来</strong>。容易翻车的地方单独写一句，别埋在段落里。</li>
+<li><strong>站内链接用别名</strong>，如 <code>[配置详解](qiantao/config.html)</code>，构建时自动转成正确路径。</li>
+<li><strong>外部链接自动新开标签页</strong>，不用手写 <code>target</code>。</li>
 </ul>
-<h2 id="_4">四、本地预览</h2>
-<p>直接双击 <code>docs/index.html</code> 可以看排版；搜索功能依赖 <code>fetch</code>，需要通过 HTTP 打开：</p>
+<h2 id="_6">五、本地预览</h2>
+<p>直接双击 <code>docs/index.html</code> 能看排版；搜索和插件筛选依赖 <code>fetch</code>，要起个本地服务：</p>
 <pre><code class="language-bash">python -m http.server 8000 -d docs
 </code></pre>
 <p>然后访问 <code>http://localhost:8000</code>。</p>
-<h2 id="_5">五、常见问题</h2>
-<p><strong>改了 Markdown 但网站没变？</strong>
-先执行 <code>python tools/build_wiki.py</code>，再提交 <code>docs/</code> 目录。</p>
+<h2 id="_7">六、常见问题</h2>
+<p><strong>改了 Markdown，网站没变？</strong>
+先跑 <code>python tools/build_wiki.py</code>，再提交 <code>docs/</code>。只改 <code>docs-src/</code> 不构建，线上不会变。</p>
 <p><strong>页面 404？</strong>
-检查 <code>site.json</code> 里的 <code>slug</code> 是否与生成路径一致，以及 <code>source</code> 文件是否存在。</p>
+检查 <code>site.json</code> 里的 <code>slug</code> 与生成路径是否一致，<code>source</code> 文件是否存在。</p>
 <p><strong>导航顺序不对？</strong>
-<code>site.json</code> 中 <code>groups</code> 与 <code>items</code> 的数组顺序就是显示顺序。</p>
-<p><strong>能改配色吗？</strong>
-改 <code>docs/assets/style.css</code> 顶部的 CSS 变量即可（<code>--accent</code>、<code>--bg</code>、<code>--panel</code> 等）。</p>
+<code>groups</code> 和 <code>items</code> 的数组顺序就是显示顺序。</p>
+<p><strong>想换配色？</strong>
+改 <code>docs-src/assets/style.css</code> 顶部的 CSS 变量（<code>--accent</code>、<code>--bg</code>、<code>--panel</code>）。</p>
+<p><strong>卡片上的版本号和实际不符？</strong>
+改 <code>site.json</code> 里的 <code>plugins[].version</code>，这是唯一数据源。</p>
 <hr />
-<p><a href="index.html">返回首页</a> · <a href="plugins.html">插件总览</a></p></article>
+<p><a href="index.html">返回首页</a> · <a href="plugins.html">插件库</a></p></article>
     <nav class="pager"><a class="pager-prev" href="custom.html"><span>上一页</span><strong>插件定制</strong></a></nav>
     <footer class="pagefoot">
-      <div>承接所有版本 Minecraft 服务端插件定制</div>
+      <div>承接所有版本 Minecraft 服务端插件定制 · 需求直说，工期和报价也直说</div>
       <div>QQ <a href="https://wpa.qq.com/msgrd?v=3&uin=1071576270&site=qq&menu=yes" target="_blank" rel="noopener">1071576270</a> · 邮箱 <a href="mailto:1071576270@qq.com">1071576270@qq.com</a></div>
     </footer>
   </main>
   <aside class="toc" id="toc">
     <div class="toc-title">本页目录</div>
-    <ul class="toc-list"><li><a href="#_2">一、站点是怎么工作的</a></li><li><a href="#4">二、新增一个插件（4 步）</a><ul class="toc-sub"><li><a href="#1">第 1 步：建目录与页面</a></li><li><a href="#2-sitejson">第 2 步：在 site.json 里加一个分组</a></li><li><a href="#3">第 3 步：更新插件总览</a></li><li><a href="#4_1">第 4 步：构建并发布</a></li></ul></li><li><a href="#_3">三、写作规范</a></li><li><a href="#_4">四、本地预览</a></li><li><a href="#_5">五、常见问题</a></li></ul>
+    <ul class="toc-list"><li><a href="#_2">一、站点是怎么工作的</a></li><li><a href="#_3">二、新增一个插件（四步）</a><ul class="toc-sub"><li><a href="#1-sitejson-plugins">第 1 步：在 site.json 的 plugins 里登记</a></li><li><a href="#2">第 2 步：复制模板</a></li><li><a href="#3-groups">第 3 步：在 groups 里加一个分组</a></li><li><a href="#4">第 4 步：构建并发布</a></li></ul></li><li><a href="#_4">三、页面里能用的占位符</a></li><li><a href="#_5">四、写作规范</a></li><li><a href="#_6">五、本地预览</a></li><li><a href="#_7">六、常见问题</a></li></ul>
   </aside>
 </div>
 <div class="search-modal" id="searchModal" hidden>

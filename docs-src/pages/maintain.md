@@ -1,60 +1,75 @@
 # 文档维护指南
 
-这份文档说明**如何往站点里新增一个插件**。整套站点是静态生成的，不需要数据库、不需要后台。
+这份文档写给以后要往站点里加插件的自己。整套站点是静态生成的：没有数据库，没有后台，改完跑一条命令就发布。
 
 ---
 
 ## 一、站点是怎么工作的
 
-```
-docs-src/                 文档源文件（你编辑这里）
-├─ site.json              站点配置：标题、导航分组、页面清单
-└─ pages/
-   ├─ home.md             首页
-   ├─ plugins.md          插件总览
-   ├─ custom.md           插件定制
-   ├─ maintain.md         本文
-   └─ qiantao/            每个插件一个目录
-      ├─ intro.md
-      ├─ install.md
-      └─ ...
+```text
+docs-src/                 文档源文件（编辑这里）
+├─ site.json              站点配置：标题、插件清单、导航分组
+├─ pages/
+│  ├─ home.md             首页
+│  ├─ plugins.md          插件库
+│  ├─ custom.md           插件定制
+│  ├─ maintain.md         本文
+│  ├─ _template/          新插件模板
+│  └─ qiantao/            每个插件一个目录
+│     ├─ intro.md
+│     ├─ install.md
+│     └─ ...
 
-tools/build_wiki.py       构建脚本：Markdown → docs/ 静态站
+tools/build_wiki.py       构建：Markdown → docs/ 静态站
 docs/                     GitHub Pages 发布目录（自动生成，不要手改）
 ```
 
-执行构建：
+构建命令：
 
 ```bash
 python tools/build_wiki.py
 ```
 
-它会读取 `site.json` 与 `pages/`，生成完整的 `docs/`：每页一个 HTML、统一侧边栏、目录、页码导航和搜索索引。
+## 二、新增一个插件（四步）
 
-## 二、新增一个插件（4 步）
+### 第 1 步：在 `site.json` 的 `plugins` 里登记
 
-### 第 1 步：建目录与页面
-
-假设新插件叫 `DailyQuest`：
-
+```json
+{
+  "id": "dailyquest",
+  "name": "DailyQuest",
+  "fullName": "DailyQuest 每日任务",
+  "version": "v1.0.0",
+  "mc": "1.12.2",
+  "status": "stable",
+  "updated": "2026-10-21",
+  "summary": "一句话说清它解决什么问题，别写形容词。",
+  "tags": ["任务", "活跃度", "奖励"],
+  "docs": "dailyquest/index.html",
+  "download": "https://github.com/.../releases/latest"
+}
 ```
-docs-src/pages/dailyquest/
-├─ intro.md       插件介绍
-├─ install.md     安装部署
-├─ commands.md    指令与权限
-└─ faq.md         常见问题
+
+`status` 只能是 `stable` / `beta` / `wip`，分别显示为「稳定 / 测试 / 开发中」。
+
+登记后，首页和 [插件库](插件总览) 的卡片会自动出现，不用手写 HTML。
+
+### 第 2 步：复制模板
+
+```bash
+cp -r docs-src/pages/_template docs-src/pages/dailyquest
 ```
 
-每个文件就是普通 Markdown，第一行用 `# 标题` 开始即可。
+模板里有四个文件：介绍、安装、指令、FAQ。改内容即可。
 
-> 直接复制 `docs-src/pages/_template/` 里的四个文件改一改最快，模板已包含介绍、安装、指令、FAQ 的标准结构。
-
-### 第 2 步：在 site.json 里加一个分组
+### 第 3 步：在 `groups` 里加一个分组
 
 ```json
 {
   "title": "DailyQuest 每日任务",
   "badge": "v1.0.0",
+  "prefix": "DailyQuest",
+  "collapsible": true,
   "items": [
     { "title": "插件介绍", "slug": "dailyquest/index.html", "source": "dailyquest/intro.md", "alias": ["DailyQuest-介绍"] },
     { "title": "安装部署", "slug": "dailyquest/install.html", "source": "dailyquest/install.md", "alias": ["DailyQuest-安装"] },
@@ -64,23 +79,16 @@ docs-src/pages/dailyquest/
 }
 ```
 
-字段说明：
-
 | 字段 | 作用 |
 | --- | --- |
-| `title` | 侧边栏与页面标题 |
+| `title` | 侧边栏分组名 |
+| `badge` | 分组右侧的版本小标签 |
+| `prefix` | 页面浏览器标题的前缀，如「DailyQuest · 安装部署」 |
+| `collapsible` | 是否折叠，插件多了建议开 |
+| `open` | 默认展开（可选） |
 | `slug` | 生成的 HTML 路径，首个子页面习惯用 `index.html` |
 | `source` | 对应的 Markdown 文件（相对 `pages/`） |
-| `alias` | 可选，站内链接别名，写 `[安装](DailyQuest-安装)` 就能跳转 |
-| `desc` | 可选，页面描述（用于 meta 与搜索结果） |
-
-### 第 3 步：更新插件总览
-
-编辑 `docs-src/pages/plugins.md`，在表格里加一行：
-
-```markdown
-| [DailyQuest 每日任务](DailyQuest-介绍) | 1.12.2 | v1.0.0 | 每日任务 / 活跃度 / 奖励 |
-```
+| `alias` | 站内链接别名，写 `[安装](DailyQuest-安装)` 就能跳 |
 
 ### 第 4 步：构建并发布
 
@@ -91,20 +99,33 @@ git commit -m "docs: 新增 DailyQuest 文档"
 git push
 ```
 
-推送后 GitHub Pages 会自动重新发布（约 1 分钟）。
+推送后 GitHub Pages 自动重新发布，大约一分钟。
 
-## 三、写作规范
+## 三、页面里能用的占位符
 
-- 一个页面只讲一件事，标题层级从 `#` 开始，正文用 `##` / `###`
-- 配置项用代码块，并标注默认值
-- 命令用表格列出：指令 / 作用 / 权限
-- 涉及数值的地方写清单位（秒、分钟、游戏内金币）
-- 站内链接统一用别名，例如 `[配置详解](QianDao-配置详解)`，构建时会自动转成正确路径
-- 外部链接会自动在新标签页打开
+在 Markdown 里单独一行写占位符，构建时会替换成生成的 HTML（前后要留空行）：
 
-## 四、本地预览
+| 占位符 | 生成内容 |
+| --- | --- |
+| `[[STATS]]` | 插件数 / 文档数 / 最近更新 |
+| `[[PLUGINS]]` | 带搜索框的插件卡片网格（插件库用） |
+| `[[PLUGINS_TOP]]` | 前 3 个插件卡片（首页用） |
+| `[[META:qiantao]]` | 该插件的版本、适用版本、状态、更新时间、下载按钮 |
 
-直接双击 `docs/index.html` 可以看排版；搜索功能依赖 `fetch`，需要通过 HTTP 打开：
+目前只有首页、插件库和插件介绍页用到，其他页面不需要。
+
+## 四、写作规范
+
+- **先给结论，再给原因**。比如「升级前先删 config.yml」放在前面，为什么放后面。
+- **配置项写清默认值**，读者不用回去翻文件。
+- **命令用表格**：指令 / 作用 / 权限，三列够了。
+- **坑要标出来**。容易翻车的地方单独写一句，别埋在段落里。
+- **站内链接用别名**，如 `[配置详解](QianDao-配置详解)`，构建时自动转成正确路径。
+- **外部链接自动新开标签页**，不用手写 `target`。
+
+## 五、本地预览
+
+直接双击 `docs/index.html` 能看排版；搜索和插件筛选依赖 `fetch`，要起个本地服务：
 
 ```bash
 python -m http.server 8000 -d docs
@@ -112,20 +133,23 @@ python -m http.server 8000 -d docs
 
 然后访问 `http://localhost:8000`。
 
-## 五、常见问题
+## 六、常见问题
 
-**改了 Markdown 但网站没变？**
-先执行 `python tools/build_wiki.py`，再提交 `docs/` 目录。
+**改了 Markdown，网站没变？**
+先跑 `python tools/build_wiki.py`，再提交 `docs/`。只改 `docs-src/` 不构建，线上不会变。
 
 **页面 404？**
-检查 `site.json` 里的 `slug` 是否与生成路径一致，以及 `source` 文件是否存在。
+检查 `site.json` 里的 `slug` 与生成路径是否一致，`source` 文件是否存在。
 
 **导航顺序不对？**
-`site.json` 中 `groups` 与 `items` 的数组顺序就是显示顺序。
+`groups` 和 `items` 的数组顺序就是显示顺序。
 
-**能改配色吗？**
-改 `docs/assets/style.css` 顶部的 CSS 变量即可（`--accent`、`--bg`、`--panel` 等）。
+**想换配色？**
+改 `docs-src/assets/style.css` 顶部的 CSS 变量（`--accent`、`--bg`、`--panel`）。
+
+**卡片上的版本号和实际不符？**
+改 `site.json` 里的 `plugins[].version`，这是唯一数据源。
 
 ---
 
-[返回首页](Home) · [插件总览](插件总览)
+[返回首页](Home) · [插件库](插件总览)
