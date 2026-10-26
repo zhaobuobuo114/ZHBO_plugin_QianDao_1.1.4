@@ -1,5 +1,6 @@
 # ============================================================
-#                    签到插件 QianDao 配置文件  v1.1.4
+#                    签到插件 【ZHBO】plugin_QianDao 配置文件  v1.1.4
+#        作者: zhaobuobuo  |  联系方式: 1071576270@QQ.COM
 #        适用版本: Minecraft 1.12.2  (Spigot / Paper)
 #        插件指令: /qd 打开签到面板  |  /qd reload 重载配置
 #        活动发卡: /qd givecard <玩家> [数量] (权限 qiandao.admin)

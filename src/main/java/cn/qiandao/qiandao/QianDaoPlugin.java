@@ -23,7 +23,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.time.LocalDate;
 
 /**
- * QianDao 签到插件主类 (Minecraft 1.12.2)
+ * 【ZHBO】plugin_QianDao 签到插件主类 (Minecraft 1.12.2)
  *
  * 功能总览:
  * - 每日一次签到, 每日凌晨4点刷新(可配置时区/刷新时间)
@@ -90,7 +90,8 @@ public final class QianDaoPlugin extends JavaPlugin {
         }
         rankingManager.refreshAll();
 
-        getLogger().info("QianDao 签到插件已启用 v" + getDescription().getVersion());
+        getLogger().info(getDescription().getName() + " 签到插件已启用 v" + getDescription().getVersion());
+        getLogger().info("作者: zhaobuobuo | 联系方式: 1071576270@QQ.COM");
     }
 
     @Override
@@ -100,7 +101,7 @@ public final class QianDaoPlugin extends JavaPlugin {
         for (Player player : Bukkit.getOnlinePlayers()) {
             rankingManager.removeBoard(player);
         }
-        getLogger().info("QianDao 签到插件已停用");
+        getLogger().info(getDescription().getName() + " 签到插件已停用");
     }
 
     /** 重载配置(供 /qd reload 使用) */

@@ -1,8 +1,9 @@
-name: QianDao
+name: ZHBO_plugin_QianDao_1.1.4
 main: cn.qiandao.qiandao.QianDaoPlugin
 version: 1.1.4
-description: "1.12.2 每日签到插件 - 七日周期奖励 / 连续签到额外奖励 / 补签卡 / 签到排名 / 金币联动"
-authors: [TRAE]
+description: "【ZHBO】plugin_QianDao_1.1.4 | 1.12.2 每日签到插件 - 七日周期奖励 / 连续签到额外奖励 / 补签卡 / 签到排名 / 金币联动 | 作者: zhaobuobuo | 联系: 1071576270@QQ.COM"
+authors: [zhaobuobuo]
+website: "mailto:1071576270@QQ.COM"
 softdepend: [ZPoints, PlayerPoints, Vault]
 
 commands:

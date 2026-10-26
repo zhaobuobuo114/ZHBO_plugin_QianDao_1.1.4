@@ -59,7 +59,7 @@
     </dependencies>
 
     <build>
-        <finalName>QianDao</finalName>
+        <finalName>【ZHBO】plugin_QianDao_1.1.4</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

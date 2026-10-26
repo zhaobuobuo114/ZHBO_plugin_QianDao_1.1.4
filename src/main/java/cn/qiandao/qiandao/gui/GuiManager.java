@@ -217,7 +217,7 @@ public class GuiManager {
         inv.setItem(4, new ItemBuilder(Material.BOOK)
                 .name("&6签到排行榜")
                 .lore("&7按连续签到天数排名, 相同天数按累计次数",
-                        "&8QianDao v" + plugin.getDescription().getVersion())
+                        "&8【ZHBO】plugin_QianDao v" + plugin.getDescription().getVersion())
                 .build());
 
         // 前10名
@@ -436,7 +436,7 @@ public class GuiManager {
         lore.add(ItemBuilder.color("&7每日 &e" + String.format("%02d:%02d", hour, minute) + " &7刷新"));
         lore.add(ItemBuilder.color("&7周期: &e7天一轮&7, 断签连续天数归零"));
         lore.add("");
-        lore.add(ItemBuilder.color("&8QianDao v" + plugin.getDescription().getVersion()));
+        lore.add(ItemBuilder.color("&8【ZHBO】plugin_QianDao v" + plugin.getDescription().getVersion()));
         meta.setLore(lore);
         head.setItemMeta(meta);
         return head;

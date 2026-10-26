@@ -170,7 +170,7 @@ public class RankingManager {
             lines.add("§7我的排名: §8未上榜");
         }
         // 版本号脚注
-        lines.add("§8──── QianDao v" + plugin.getDescription().getVersion());
+        lines.add("§8ZHBO QianDao v" + plugin.getDescription().getVersion());
         // 自下而上填充(计分板中分数越高越靠上)
         int lineCount = Math.min(lines.size(), teamList.size());
         for (int i = 0; i < teamList.size(); i++) {

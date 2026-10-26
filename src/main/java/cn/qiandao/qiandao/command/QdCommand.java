@@ -107,8 +107,9 @@ public class QdCommand implements CommandExecutor, TabCompleter {
                 }
                 // 底部版本号
                 sender.sendMessage(ItemBuilder.color("&8&m------------------------------"));
-                sender.sendMessage(ItemBuilder.color("&7QianDao 签到插件 &e&l v"
+                sender.sendMessage(ItemBuilder.color("&7【ZHBO】plugin_QianDao &e&l v"
                         + plugin.getDescription().getVersion()));
+                sender.sendMessage(ItemBuilder.color("&7作者: &fzhaobuobuo &8| &7联系: &f1071576270@QQ.COM"));
                 return true;
             }
             default:

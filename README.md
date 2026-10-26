@@ -1,4 +1,4 @@
-# [klkhk]plugin_qiandao_1.12.2 · 每日签到插件
+# 【ZHBO】plugin_QianDao_1.1.4 · 每日签到插件
 
 > Minecraft **1.12.2**（Spigot / Paper）服务端签到插件 —— 七日周期奖励、连续签到额外奖励、补签卡、签到排行榜、经济插件联动，全部配置化。
 
@@ -6,11 +6,13 @@
 ![platform](https://img.shields.io/badge/platform-Spigot%20%7C%20Paper%201.12.2-orange)
 ![java](https://img.shields.io/badge/Java-8-blue)
 ![config](https://img.shields.io/badge/%E5%85%A8%E9%85%8D%E7%BD%AE%E5%8C%96-YAML-informational)
-[![download](https://img.shields.io/badge/%E4%B8%8B%E8%BD%BD-%5Bklkhk%5Dplugin__qiandao__1.12.2.jar-2ea44f?logo=github)](https://github.com/zhaobuobuo114/klkhk-plugin_qiandao/releases/latest)
+[![download](https://img.shields.io/badge/%E4%B8%8B%E8%BD%BD-%E3%80%90ZHBO%E3%80%91plugin__QianDao__1.1.4.jar-2ea44f?logo=github)](https://github.com/zhaobuobuo114/ZHBO_plugin_QianDao_1.1.4/releases/latest)
 [![docs](https://img.shields.io/badge/%E6%96%87%E6%A1%A3-%E5%9C%A8%E7%BA%BF%E6%9F%A5%E7%9C%8B-3fb950)](https://zhaobuobuo114.github.io/plugin-wiki/qiantao/)
 
 > 📖 **在线文档**：<https://zhaobuobuo114.github.io/plugin-wiki/qiantao/>
 > 文档已迁到独立的插件文档总站，本站只放代码与发布包。
+
+> 👤 **作者**：zhaobuobuo ｜ 📧 **联系方式**：1071576270@QQ.COM
 
 ---
 
@@ -34,7 +36,7 @@
 
 ## 简介
 
-`[klkhk]plugin_qiandao_1.12.2` 是一套开箱即用的每日签到系统。玩家通过 `/qd` 打开图形化签到面板，一键领取当天奖励；插件以 **7 天为一个奖励周期**，第 7 天为终极大奖，第 8 天重新从第 1 天循环（连续天数继续累计）。漏签可以用**补签卡**补救，连续签到 7 / 14 / 30 天还有额外奖励与全服广播。
+`【ZHBO】plugin_QianDao_1.1.4` 是一套开箱即用的每日签到系统。玩家通过 `/qd` 打开图形化签到面板，一键领取当天奖励；插件以 **7 天为一个奖励周期**，第 7 天为终极大奖，第 8 天重新从第 1 天循环（连续天数继续累计）。漏签可以用**补签卡**补救，连续签到 7 / 14 / 30 天还有额外奖励与全服广播。
 
 所有奖励物品、金币数量、提示文本、音效粒子均可通过 `config.yml` 修改，**不需要改代码**。奖励通过控制台指令发放，因此可以接入任意物品 / 经济 / 点券插件。
 
@@ -66,13 +68,14 @@
 
 ## 安装
 
-1. 到 [Releases](https://github.com/zhaobuobuo114/klkhk-plugin_qiandao/releases/latest) 下载插件本体 `[klkhk]plugin_qiandao_1.12.2.jar`（GitHub 显示为 `klkhk.plugin_qiandao_1.12.2.jar`，方括号被替换成点号），放入服务端 `plugins/` 目录（也可按 [编译构建](#编译构建) 自行打包，产物为 `QianDao.jar`）。
-2. 启动服务器，插件会自动生成 `plugins/QianDao/config.yml`。
+1. 到 [Releases](https://github.com/zhaobuobuo114/ZHBO_plugin_QianDao_1.1.4/releases/latest) 下载插件本体 `【ZHBO】plugin_QianDao_1.1.4.jar`，放入服务端 `plugins/` 目录（也可按 [编译构建](#编译构建) 自行打包，产物为 `【ZHBO】plugin_QianDao_1.1.4.jar`）。
+2. 启动服务器，插件会自动生成 `plugins/ZHBO_plugin_QianDao_1.1.4/config.yml`。
 3. 按需修改 `config.yml`（奖励、金币、刷新时间等）。
 4. 执行 `/qd reload` 重载，或重启服务器。
 5. 玩家执行 `/qd` 即可打开签到面板。
 
 > **升级提示**：新版本可能新增配置项。升级后请先备份并删除旧 `config.yml`，让插件重新生成，再把自定义内容迁移回去。
+> **目录变更**：插件已更名为 `【ZHBO】plugin_QianDao_1.1.4`（插件内部名 `ZHBO_plugin_QianDao_1.1.4`），数据目录由 `plugins/QianDao/` 变为 `plugins/ZHBO_plugin_QianDao_1.1.4/`。升级时请把旧的 `config.yml` 与 `data.yml` 整体迁移到新目录。
 
 ## 指令与权限
 
@@ -115,7 +118,7 @@
 
 ## 配置文件详解
 
-配置文件位于 `plugins/QianDao/config.yml`，全部支持 `&` 颜色代码。
+配置文件位于 `plugins/ZHBO_plugin_QianDao_1.1.4/config.yml`，全部支持 `&` 颜色代码。
 
 ### general · 基础设置
 
@@ -263,7 +266,7 @@ sign-title:
 
 ## 数据存储
 
-- 路径：`plugins/QianDao/data.yml`
+- 路径：`plugins/ZHBO_plugin_QianDao_1.1.4/data.yml`
 - 结构：以玩家 UUID 为键，保存玩家名、已签到日期、已补签日期、累计次数、已发放里程碑、在线统计
 - 保存：按 `general.auto-save-seconds` 异步定时保存，停服时同步保存
 - 清理：自动移除 60 天前的日期记录，避免文件无限膨胀
@@ -274,11 +277,11 @@ sign-title:
 
 ```bash
 git clone <本仓库地址>
-cd QianDao
+cd ZHBO_plugin_QianDao_1.1.4
 mvn clean package
 ```
 
-产物：`target/QianDao.jar`
+产物：`target/【ZHBO】plugin_QianDao_1.1.4.jar`
 
 构建说明：
 
@@ -298,7 +301,7 @@ A：确认执行了 `/qd reload`，并检查 `cycle` 下的 `commands` 是否写
 A：补签只能补「最近 `max-days` 天内、且在该玩家首次签到之后」的漏签日期。新玩家没有历史记录，自然没有可补签日期。
 
 **Q：升级后部分配置项丢失 / 报错？**
-A：删除 `plugins/QianDao/config.yml` 让插件重新生成，再把自定义值迁回新文件。
+A：删除 `plugins/ZHBO_plugin_QianDao_1.1.4/config.yml` 让插件重新生成，再把自定义值迁回新文件。
 
 **Q：右侧排行榜不显示？**
 A：确认 `ranking.scoreboard-enable: true`，并检查是否被其他计分板插件顶掉；执行 `/qd reload` 可重建计分板。
@@ -310,6 +313,10 @@ A：本版本面向 1.12.2 编写，材质名为 1.12.2 规范（如 `SKULL_ITEM
 
 ### v1.1.4
 
+- 插件与仓库更名为 `【ZHBO】plugin_QianDao_1.1.4`（插件内部名 `ZHBO_plugin_QianDao_1.1.4`）
+- 插件作者信息统一为 `zhaobuobuo`
+- 新增联系方式 `1071576270@QQ.COM`（插件元数据、启动日志、`/qd help`、README）
+- 金币配置改为按天直填：`economy.cycle-gold`（第1天默认 10 金币）
 - 七日周期奖励、连续 7 / 14 / 30 天额外奖励与全服广播
 - 补签卡系统：右键打开补签面板、二次确认、连续天数恢复
 - 在线奖励自动发卡（每日上限）
@@ -324,7 +331,7 @@ A：本版本面向 1.12.2 编写，材质名为 1.12.2 规范（如 `SKULL_ITEM
 > 签到 / 抽奖 / 副本 / 经济 / GUI / 数据统计等均可定制，支持 1.7.10 ~ 最新版本。
 >
 > **联系方式**
-> QQ：`1071576270`
-> 邮箱：`1071576270@qq.com`
+> 作者：`zhaobuobuo`
+> 邮箱：`1071576270@QQ.COM`
 
 如果这个插件对你有帮助，欢迎 Star ⭐ 支持一下。
