@@ -6,7 +6,7 @@
 ![platform](https://img.shields.io/badge/platform-Spigot%20%7C%20Paper%201.12.2-orange)
 ![java](https://img.shields.io/badge/Java-8-blue)
 ![config](https://img.shields.io/badge/%E5%85%A8%E9%85%8D%E7%BD%AE%E5%8C%96-YAML-informational)
-[![download](https://img.shields.io/badge/%E4%B8%8B%E8%BD%BD-%E3%80%90ZHBO%E3%80%91plugin__QianDao__1.1.4.jar-2ea44f?logo=github)](https://github.com/zhaobuobuo114/ZHBO_plugin_QianDao_1.1.4/releases/latest)
+[![download](https://img.shields.io/badge/%E4%B8%8B%E8%BD%BD-ZHBO--plugin__QianDao__1.1.4.jar-2ea44f?logo=github)](https://github.com/zhaobuobuo114/ZHBO_plugin_QianDao_1.1.4/releases/latest)
 [![docs](https://img.shields.io/badge/%E6%96%87%E6%A1%A3-%E5%9C%A8%E7%BA%BF%E6%9F%A5%E7%9C%8B-3fb950)](https://zhaobuobuo114.github.io/plugin-wiki/qiantao/)
 
 > 📖 **在线文档**：<https://zhaobuobuo114.github.io/plugin-wiki/qiantao/>
@@ -68,7 +68,7 @@
 
 ## 安装
 
-1. 到 [Releases](https://github.com/zhaobuobuo114/ZHBO_plugin_QianDao_1.1.4/releases/latest) 下载插件本体 `【ZHBO】plugin_QianDao_1.1.4.jar`，放入服务端 `plugins/` 目录（也可按 [编译构建](#编译构建) 自行打包，产物为 `【ZHBO】plugin_QianDao_1.1.4.jar`）。
+1. 到 [Releases](https://github.com/zhaobuobuo114/ZHBO_plugin_QianDao_1.1.4/releases/latest) 下载插件本体 `ZHBO-plugin_QianDao_1.1.4.jar`（源工程与本地构建产物名为 `【ZHBO】plugin_QianDao_1.1.4.jar`，GitHub 附件不支持书名号会自动改写），放入服务端 `plugins/` 目录（也可按 [编译构建](#编译构建) 自行打包，产物为 `【ZHBO】plugin_QianDao_1.1.4.jar`）。
 2. 启动服务器，插件会自动生成 `plugins/ZHBO_plugin_QianDao_1.1.4/config.yml`。
 3. 按需修改 `config.yml`（奖励、金币、刷新时间等）。
 4. 执行 `/qd reload` 重载，或重启服务器。
